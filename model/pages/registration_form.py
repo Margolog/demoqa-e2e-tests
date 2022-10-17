@@ -50,6 +50,10 @@ def take_address(address):
     browser.element('#currentAddress').type(address)
 
 
+def scroll_to_bottom():
+    s('#state').perform(command.js.scroll_into_view)
+
+
 def take_state(value: str):
     dropdown.select(browser.element('#state'), value)
 
@@ -58,8 +62,7 @@ def take_city(value: str):
     dropdown.select(browser.element('#city'), value)
 
 
-def scroll_to_bottom():
-    s('#state').perform(command.js.scroll_into_view)
+
 
 
 def abs_path(relative_path):
