@@ -17,6 +17,7 @@ def test_submit_student_registration_form():
     registration_form.take_subject('Hindi')
     registration_form.take_picture('../resourses/pic.jpg')
     registration_form.take_address('Saint-Peterburg')
+    registration_form.scroll_to_bottom()
     registration_form.take_state('Haryana')
     registration_form.take_city('Karnal')
     registration_form.submit()
