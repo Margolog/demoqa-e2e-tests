@@ -49,7 +49,6 @@ def take_hobbies():
 def take_address(address):
     browser.element('#currentAddress').type(address)
 
-
 def scroll_to_bottom():
     s('#state').perform(command.js.scroll_into_view)
 
