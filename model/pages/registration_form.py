@@ -4,14 +4,14 @@ from selene import command
 from selene.support.shared import browser
 from model.controls import dropdown, modal, datepicker
 from selene.support.shared.jquery_style import s
-import datetime
-
 
 def open_page(url, resourses):
     br = browser.open(url + resourses)
-    browser.config.window_height, browser.config.window_width = 1090, 1000
-    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
-        br.perform(command.js.remove)
+#    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
+#        br.perform(command.js.remove)
+    browser.all('[id^=google_ads][id$=container__],[id$=Advertisement]').with_(timeout=10) \
+        .should(have.size_less_than_or_equal(4)) \
+        .perform(command.js.remove)
 
 
 def take_first_name(firstname):
@@ -49,6 +49,7 @@ def take_hobbies():
 def take_address(address):
     browser.element('#currentAddress').type(address)
 
+
 def scroll_to_bottom():
     s('#state').perform(command.js.scroll_into_view)
 
@@ -59,9 +60,6 @@ def take_state(value: str):
 
 def take_city(value: str):
     dropdown.select(browser.element('#city'), value)
-
-
-
 
 
 def abs_path(relative_path):
@@ -82,6 +80,6 @@ def submit():
 
 
 def should_have_submitted(data):
-    rows = modal.dialog.all('tbody tr')
+    rows = s('.modal-content').all('tbody tr')
     for row, value in data:
         rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))

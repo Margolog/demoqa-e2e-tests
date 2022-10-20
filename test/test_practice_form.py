@@ -12,6 +12,7 @@ def test_submit_student_registration_form():
     registration_form.take_email('Logunovar@gmail.com')
     registration_form.choose_gender()
     registration_form.take_phone_number('9876543211')
+    registration_form.scroll_to_bottom()
     registration_form.choose_birthday()
     registration_form.take_hobbies()
     registration_form.take_subject('Hindi')
@@ -29,7 +30,7 @@ def test_submit_student_registration_form():
             ('Gender', 'Female'),
             ('Mobile', '9876543211'),
             ('Date of Birth', '12 March,1996'),
-            ('Subjects', 'Computer Science'),
+            ('Subjects', 'Hindi'),
             ('Hobbies', 'Sports'),
             ('Picture', 'pic.jpg'),
             ('Address', 'Saint-Peterburg'),
