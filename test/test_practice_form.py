@@ -1,13 +1,10 @@
-
 import allure
-import attach
-from selene import browser
-
 from model.pages import registration_form
 from model.utils import *
 
 
 def test_submit_student_registration_form():
+
     # GIVEN
     with allure.step("Открываем страницу регистрации"):
         registration_form.open_page('https://demoqa.com', '/automation-practice-form')
@@ -47,6 +44,4 @@ def test_submit_student_registration_form():
             ]
         )
 
-attach.add_screenshot(browser)
-attach.add_logs(browser)
-attach.add_html(browser)
+

@@ -5,6 +5,7 @@ from selene.support.shared import browser
 from model.controls import dropdown, modal, datepicker
 from selene.support.shared.jquery_style import s
 
+
 def open_page(url, resourses):
     br = browser.open(url + resourses)
 #    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
