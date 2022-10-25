@@ -1,4 +1,6 @@
 import os
+
+import pytest
 from selene import be, have
 from selene import command
 from selene.support.shared import browser
@@ -6,13 +8,16 @@ from model.controls import dropdown, modal, datepicker
 from selene.support.shared.jquery_style import s
 
 
+
 def open_page(url, resourses):
     br = browser.open(url + resourses)
-#    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
-#        br.perform(command.js.remove)
+    #    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
+    #        br.perform(command.js.remove)
     browser.all('[id^=google_ads][id$=container__],[id$=Advertisement]').with_(timeout=10) \
         .should(have.size_less_than_or_equal(4)) \
         .perform(command.js.remove)
+
+
 
 
 def take_first_name(firstname):
