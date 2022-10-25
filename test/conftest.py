@@ -34,14 +34,14 @@ def browser_management():
     login = os.getenv('LOGIN')
     password = os.getenv('PASSWORD')
 
-    driver = webdriver.Remote(
-        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
-        options=options
-    )
+#    driver = webdriver.Remote(
+#        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
+#        options=options
+#    )
 
-    #    driver = webdriver.Remote(
-    #        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
-    #        options=options)
+    driver = webdriver.Remote(
+        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=options)
 
     browser.config.driver = driver
 
