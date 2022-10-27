@@ -3,7 +3,6 @@ import os.path
 import allure
 from model.pages import registration_form
 from model.pages.registration_form import take_picture
-from model.utils import *
 from pathlib import Path
 
 
