@@ -10,15 +10,12 @@ from pathlib import Path
 
 
 def open_page(url, resourses):
-    br = browser.open(url + resourses)
+#    br = browser.open(url + resourses)
     #    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
     #        br.perform(command.js.remove)
     browser.all('[id^=google_ads][id$=container__],[id$=Advertisement]').with_(timeout=10) \
         .should(have.size_less_than_or_equal(4)) \
         .perform(command.js.remove)
-
-
-
 
 
 def take_first_name(firstname):
@@ -74,7 +71,7 @@ def abs_path(relative_path):
     return path
 
 
-#def take_picture(photo):
+# def take_picture(photo):
 #    browser.element('[id="uploadPicture"]').send_keys(abs_path(photo))
 
 
@@ -95,4 +92,3 @@ def should_have_submitted(data):
     rows = modal.dialog.all('tbody tr')
     for row, value in data:
         rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
-
