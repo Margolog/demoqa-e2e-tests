@@ -1,6 +1,5 @@
 import os
 
-import PASSWORD as PASSWORD
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -37,12 +36,12 @@ def browser_management():
     password = os.getenv('password')
 
     driver = webdriver.Remote(
-        command_executor=f"https://{'LOGIN'}:{'PASSWORD'}@selenoid.autotests.cloud/wd/hub",
+        command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
         options=options)
 
-#    driver = webdriver.Remote(
-#        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
-#        options=options)
+    #    driver = webdriver.Remote(
+    #        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+    #        options=options)
 
     browser.config.driver = driver
 
