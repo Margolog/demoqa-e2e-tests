@@ -6,7 +6,7 @@ from selene import command
 from selene.support.shared import browser
 from model.controls import dropdown, modal, datepicker
 from selene.support.shared.jquery_style import s
-
+from pathlib import Path
 
 
 def open_page(url, resourses):
@@ -16,6 +16,7 @@ def open_page(url, resourses):
     browser.all('[id^=google_ads][id$=container__],[id$=Advertisement]').with_(timeout=10) \
         .should(have.size_less_than_or_equal(4)) \
         .perform(command.js.remove)
+
 
 
 
@@ -73,8 +74,13 @@ def abs_path(relative_path):
     return path
 
 
-def take_picture(photo):
-    browser.element('[id="uploadPicture"]').send_keys(abs_path(photo))
+#def take_picture(photo):
+#    browser.element('[id="uploadPicture"]').send_keys(abs_path(photo))
+
+
+def take_picture(relative_path) -> str:
+    path = str(Path(__file__).parent.parent.joinpath('resources').joinpath(relative_path))
+    return path
 
 
 def choose_gender():
@@ -86,6 +92,7 @@ def submit():
 
 
 def should_have_submitted(data):
-    rows = s('.modal-content').all('tbody tr')
+    rows = modal.dialog.all('tbody tr')
     for row, value in data:
         rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
+

@@ -1,10 +1,13 @@
+import os.path
+
 import allure
 from model.pages import registration_form
+from model.pages.registration_form import take_picture
 from model.utils import *
+from pathlib import Path
 
 
 def test_submit_student_registration_form():
-
     # GIVEN
     with allure.step("Открываем страницу регистрации"):
         registration_form.open_page('https://demoqa.com', '/automation-practice-form')
@@ -20,7 +23,8 @@ def test_submit_student_registration_form():
         registration_form.choose_birthday()
         registration_form.take_hobbies()
         registration_form.take_subject('Hindi')
-        registration_form.take_picture('../resourses/pic.jpg')
+        # registration_form.take_picture('../resources/pic.jpg')
+        registration_form.take_picture(take_picture('pic.jpg'))
         registration_form.take_address('Saint-Peterburg')
         registration_form.scroll_to_bottom()
         registration_form.take_state('Haryana')
@@ -43,5 +47,3 @@ def test_submit_student_registration_form():
                 ('State and City', 'Haryana Karnal')
             ]
         )
-
-
