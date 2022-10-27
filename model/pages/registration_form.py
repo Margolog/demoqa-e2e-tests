@@ -88,7 +88,12 @@ def submit():
     browser.element('#submit').perform(command.js.click)
 
 
+#def should_have_submitted(data):
+  #  rows = modal.dialog.all('tbody tr')
+  #  for row, value in data:
+       # rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
 def should_have_submitted(data):
-    rows = modal.dialog.all('tbody tr')
+    dialog = browser.element('.modal-content')
+    rows = dialog.all('tbody tr')
     for row, value in data:
         rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
