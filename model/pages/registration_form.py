@@ -14,7 +14,7 @@ def open_page(url, resourses):
     #    if br.with_(timeout=6).wait.until(have.size_greater_than_or_equal(3)):
     #        br.perform(command.js.remove)
     browser.all('[id^=google_ads][id$=container__],[id$=Advertisement]').with_(timeout=10) \
-        .should(have.size_less_than_or_equal(4)) \
+        .should(have.size_less_than_or_equal(6)) \
         .perform(command.js.remove)
 
 
