@@ -5,7 +5,6 @@ from model.pages import registration_form
 from model.pages.registration_form import take_picture
 
 
-
 def test_submit_student_registration_form():
     # GIVEN
     with allure.step("Открываем страницу регистрации"):
@@ -41,7 +40,7 @@ def test_submit_student_registration_form():
                 ('Date of Birth', '12 March,1996'),
                 ('Subjects', 'Hindi'),
                 ('Hobbies', 'Sports'),
-#                ('Picture', 'pic.jpg'),
+                #                ('Picture', 'pic.jpg'),
                 ('Address', 'Saint-Peterburg'),
                 ('State and City', 'Haryana Karnal')
             ]
