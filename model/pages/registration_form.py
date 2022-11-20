@@ -1,16 +1,10 @@
-import os
-
-import pytest
-import self as self
-from selene import be, have
+from selene.support.shared.jquery_style import s
+from selene import have
 from selene import command
 from selene.support.shared import browser
 from model.controls import dropdown, modal, datepicker
-from selene.support.shared.jquery_style import s
-from pathlib import Path
-
-from model.controls.datepicker import DatePicker
-from model.controls.dropdown import DropDown
+from model.controls.checkbox import select_checkbox
+from model.data.user import Hobby, Subject
 
 
 
@@ -22,66 +16,66 @@ class RegistrationForm:
             .perform(command.js.remove)
         return self
 
-    def take_first_name(self, firstname: str):
-        browser.element('#firstName').type(firstname)
+    def take_first_name(self, name: str):
+        browser.element('#firstName').type(name)
         return self
 
-    def take_last_name(self, lastname: str):
-        browser.element('#lastName').type(lastname)
+    def take_last_name(self, last_name: str):
+        browser.element('#lastName').type(last_name)
         return self
 
     def take_email(self, email: str):
         browser.element('#userEmail').type(email)
         return self
 
-    def take_phone_number(self, mobile: str):
-        browser.element('#userNumber').type(mobile)
-        return self
-
-    def choose_birthday(self):
-        birthday_datepicker = DatePicker()
-        birthday_datepicker.fill_2_date()
+    def take_phone_number(self, number: str):
+        browser.element('#userNumber').type(number)
         return self
 
 
-    def take_subject(self, subject):
-        browser.element('#subjectsInput').should(be.blank).type(subject).press_enter()
+    def choose_birthday(self, birth_day, birth_month, birth_year):
+        birtday = datepicker.DatePicker()
+        birtday.choose_date(birth_day, birth_month, birth_year, '#dateOfBirthInput')
         return self
 
-    def take_hobbies(self):
-        browser.element('#hobbies-checkbox-1').perform(command.js.click)
+    def take_hobby(self, hobbies: Hobby):
+        for hobby in hobbies:
+            select_checkbox('[for^=hobbies-checkbox]', hobby.name).first.click().perform(command.js.scroll_into_view)
+        return self
+    def take_subject(self,subjects: Subject):
+        for subject in subjects:
+            browser.element('[id="subjectsInput"]').type(subject.name).press_enter()
         return self
 
     def take_address(self, address):
         browser.element('#currentAddress').type(address)
         return self
 
-    def take_state(self, value):
-        self.s('#state').perform(command.js.scroll_into_view)
-        DropDown.select(self, browser.element('#state'), value)
+    def scroll_to_bottom(self):
+        s('#state').perform(command.js.scroll_into_view)
+
+    def take_state(self, value: str):
+        st = dropdown.DropDown()
+        st.select(browser.element('#state'), value)
         return self
 
-    def take_city(self, value):
-        DropDown.select(self, browser.element('#city'), value)
+    def take_city(self, value: str):
+        sity = dropdown.DropDown()
+        sity.select(browser.element('#city'), value)
         return self
 
-    def abs_path(self, relative_path):
-        path = os.path.abspath(relative_path)
-        return path
+
+   # def take_picture(relative_path) -> str:
+        #path = str(Path(__file__).parent.parent.joinpath('resources').joinpath(relative_path))
+       # return path
+
+    def set_gender(self, gender):
+        browser.all('[for^=gender-radio]').all_by(
+            have.exact_text(gender)
+        ).first.click()
         return self
 
-#   def take_picture(self, photo):
- #       browser.element('[id="uploadPicture"]').send_keys(photo.abs_path(photo))
-  #      return self
 
-    def take_picture(self, relative_path) -> str:
-        path = str(Path(__file__).parent.parent.joinpath('resources').joinpath(relative_path))
-        return path
-        return self
-
-    def choose_gender(self):
-        browser.element("[for='gender-radio-2']").perform(command.js.click)
-        return self
 
     def submit(self):
         browser.element('#submit').perform(command.js.click)
@@ -91,9 +85,11 @@ class RegistrationForm:
         #  rows = modal.dialog.all('tbody tr')
         #  for row, value in data:
         # rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
+
     def should_have_submitted(self, data):
         dialog = browser.element('.modal-content')
         rows = dialog.all('tbody tr')
         for row, value in data:
             rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
             return self
+
