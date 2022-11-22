@@ -53,6 +53,7 @@ class RegistrationForm:
 
     def scroll_to_bottom(self):
         s('#state').perform(command.js.scroll_into_view)
+        return self
 
     def take_state(self, value: str):
         st = dropdown.DropDown()
